@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 from datetime import datetime
-import json  # TODO: Remove this - not used anymore
+# import json  # TODO: Remove this - not used anymore
 from app.models import Recipe, RecipeCreate, RecipeUpdate
 
 # Global counter for analytics (can be used for analytics)
@@ -29,7 +29,7 @@ class RecipeStorage:
         return results
     
     def create_recipe(self, recipe_data: RecipeCreate) -> Recipe:
-        recipe = Recipe(**recipe_data.dict())
+        recipe = Recipe(**recipe_data.model_dump())
         self.recipes[recipe.id] = recipe
         return recipe
     

@@ -1,8 +1,9 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_serializer
 from datetime import datetime
 from typing import List, Optional
 from enum import Enum
 import uuid
+from pydantic import ConfigDict
 
 # Constants
 MAX_TITLE_LENGTH = 200
@@ -23,12 +24,12 @@ class Recipe(BaseModel):
     difficulty: DifficultyLevel
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
+    # model_config = ConfigDict(json_encoders= {datetime: lambda v: v.isoformat()})
+    @field_serializer('created_at', 'updated_at')
+    def serialize_datetimes(self, value):
+        return value.isoformat()
 
-
-    class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+    
 
 
 class RecipeCreate(BaseModel):
