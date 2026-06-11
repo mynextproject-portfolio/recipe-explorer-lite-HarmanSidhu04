@@ -67,6 +67,7 @@ def create_recipe_form(
     difficulty: str = Form(...),
     ingredients: str = Form(...),
     instructions: str = Form(...),
+    cuisine: str = Form(...),
     tags: str = Form(...)
 ):
     """Handle new recipe form submission"""
@@ -92,6 +93,7 @@ def create_recipe_form(
             difficulty=difficulty,
             ingredients=ingredient_list,
             instructions=instructions.strip(),
+            cuisine=cuisine,
             tags=tag_list
         )
         
@@ -116,6 +118,7 @@ def update_recipe_form(
     difficulty: str = Form(...),
     ingredients: str = Form(...),
     instructions: str = Form(...),
+    cuisine: str = Form(...),
     tags: str = Form(...)
 ):
     """Handle edit recipe form submission"""
@@ -140,6 +143,7 @@ def update_recipe_form(
             difficulty=difficulty,
             ingredients=ingredient_list,
             instructions=instructions.strip(),
+            cuisine=cuisine,
             tags=tag_list
         )
         

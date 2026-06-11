@@ -16,7 +16,7 @@
     <div class="col-md-8">
         <h1>{{ recipe.title }}</h1>
         <p class="lead">{{ recipe.description }}</p>
-        
+        <p><strong>Cuisine:</strong>{{recipe.cuisine}}</p>
         <div class="row mb-4">
             <div class="col-md-6">
                 <h6>Difficulty Level</h6>
@@ -79,6 +79,7 @@
             <div class="card-body">
                 <h6 class="card-title">Recipe Info</h6>
                 <small class="text-muted">
+                    <div><strong>Cuisine:</strong>{{recipe.cuisine}}</div>
                     <div><strong>Created:</strong> {{ recipe.created_at.strftime('%B %d, %Y') }}</div>
                     <div><strong>Updated:</strong> {{ recipe.updated_at.strftime('%B %d, %Y') }}</div>
                     <div><strong>Ingredients:</strong> {{ recipe.ingredients|length }}</div>
