@@ -44,6 +44,9 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">{{ recipe.title }}</h5>
+                    {% if recipe.cuisine %}
+                        <span class="badge bg-info text-dark mb-2">{{ recipe.cuisine }}</span>
+                    {% endif %}
                     <p class="card-text">{{ recipe.description[:100] }}{% if recipe.description|length > 100 %}...{% endif %}</p>
                     <div class="mb-2">
                         <small class="text-muted">

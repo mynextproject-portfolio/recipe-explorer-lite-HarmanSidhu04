@@ -67,6 +67,7 @@ def create_recipe_form(
     difficulty: str = Form(...),
     ingredients: str = Form(...),
     instructions: str = Form(...),
+    cuisine: str = Form(...),
     tags: str = Form(...)
 ):
     """Handle new recipe form submission"""
@@ -76,6 +77,7 @@ def create_recipe_form(
             raise ValueError("Title too long")
         
         # Parse ingredients (one per line) and tags (comma-separated)
+        instruction_list=[ins.strip() for ins in instructions.split('\n') if ins.strip()]
         ingredient_list = [ing.strip() for ing in ingredients.split('\n') if ing.strip()]
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
         
@@ -83,7 +85,7 @@ def create_recipe_form(
         if len(ingredient_list) == 0:
             raise ValueError("At least one ingredient required")
         
-        if not instructions.strip():
+        if len(instruction_list)==0:
             raise ValueError("Instructions are required")
         
         recipe_data = RecipeCreate(
@@ -91,7 +93,8 @@ def create_recipe_form(
             description=description,
             difficulty=difficulty,
             ingredients=ingredient_list,
-            instructions=instructions.strip(),
+            instructions=instruction_list,
+            cuisine=cuisine,
             tags=tag_list
         )
         
@@ -116,6 +119,7 @@ def update_recipe_form(
     difficulty: str = Form(...),
     ingredients: str = Form(...),
     instructions: str = Form(...),
+    cuisine: str = Form(...),
     tags: str = Form(...)
 ):
     """Handle edit recipe form submission"""
@@ -125,13 +129,14 @@ def update_recipe_form(
             raise ValueError("Title is too long!")
         
         # Parse ingredients (one per line) and tags (comma-separated)
+        instruction_list=[ins.strip() for ins in instructions.split('\n') if ins.strip()]
         ingredient_list = [ing.strip() for ing in ingredients.split('\n') if ing.strip()]
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
         
         if len(ingredient_list) == 0:
             raise ValueError("Need ingredients!")
             
-        if not instructions.strip():
+        if len(instruction_list)==0:
             raise ValueError("Instructions are required")
         
         recipe_data = RecipeUpdate(
@@ -139,7 +144,8 @@ def update_recipe_form(
             description=description,
             difficulty=difficulty,
             ingredients=ingredient_list,
-            instructions=instructions.strip(),
+            instructions=instruction_list,
+            cuisine=cuisine,
             tags=tag_list
         )
         

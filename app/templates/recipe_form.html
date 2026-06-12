@@ -33,6 +33,12 @@
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3" required>{% if recipe %}{{ recipe.description }}{% endif %}</textarea>
             </div>
+
+            <div class="mb-3">
+                <label for="cuisine" class="form-label">Cuisine</label>
+                <input type="text" class="form-control" id="cuisine" name="cuisine"
+                       value="{% if recipe %}{{ recipe.cuisine }}{% endif %}" placeholder="e.g. Italian, Chinese, Mexican" required>
+            </div>
             
             <div class="mb-3">
                 <label for="difficulty" class="form-label">Difficulty Level</label>
@@ -84,9 +90,33 @@
             
             <!-- Instructions Section -->
             <div class="mb-4">
-                <label for="instructions" class="form-label">Instructions</label>
-                <textarea class="form-control" id="instructions" name="instructions" rows="8" required 
-                          placeholder="Enter complete cooking instructions...">{% if recipe %}{{ recipe.instructions }}{% endif %}</textarea>
+                <label class="form-label">Instructions</label>
+                <div id="instructions-container">
+                    {% if recipe and recipe.instructions %}
+                        {% for instruction in recipe.instructions %}
+                        <div class="instruction-item mb-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control instruction-input" 
+                                       value="{{ instruction }}" required>
+                                <button type="button" class="btn btn-outline-danger remove-instruction">Remove</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="instruction-item mb-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control instruction-input" 
+                                       placeholder="Enter instruction..." required>
+                                <button type="button" class="btn btn-outline-danger remove-instruction">Remove</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="button" id="add-instruction" class="btn btn-outline-primary btn-sm">
+                    + Add Instruction
+                </button>
+                <!-- Hidden textarea to submit ingredients -->
+                <textarea name="instructions" id="instructions-data" style="display: none;"></textarea>
             </div>
             
             <!-- Submit Buttons -->
@@ -114,6 +144,16 @@ document.querySelector('form').addEventListener('submit', function(e) {
         }
     });
     document.getElementById('ingredients-data').value = ingredients.join('\n');
+});
+document.querySelector('form').addEventListener('submit', function(e) {
+    // Collect ingredients
+    const instructions = [];
+    document.querySelectorAll('.instruction-input').forEach(input => {
+        if (input.value.trim()) {
+            instructions.push(input.value.trim());
+        }
+    });
+    document.getElementById('instructions-data').value = instructions.join('\n');
 });
 </script>
 {% endblock %}
