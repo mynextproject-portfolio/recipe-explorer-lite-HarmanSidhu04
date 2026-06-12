@@ -85,7 +85,7 @@ def create_recipe_form(
         if len(ingredient_list) == 0:
             raise ValueError("At least one ingredient required")
         
-        if not instructions.strip():
+        if len(instruction_list)==0:
             raise ValueError("Instructions are required")
         
         recipe_data = RecipeCreate(
@@ -136,7 +136,7 @@ def update_recipe_form(
         if len(ingredient_list) == 0:
             raise ValueError("Need ingredients!")
             
-        if not instructions.strip():
+        if len(instruction_list)==0:
             raise ValueError("Instructions are required")
         
         recipe_data = RecipeUpdate(

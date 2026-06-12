@@ -113,7 +113,7 @@
                     {% endif %}
                 </div>
                 <button type="button" id="add-instruction" class="btn btn-outline-primary btn-sm">
-                    + Add Ingredient
+                    + Add Instruction
                 </button>
                 <!-- Hidden textarea to submit ingredients -->
                 <textarea name="instructions" id="instructions-data" style="display: none;"></textarea>
@@ -150,7 +150,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     const instructions = [];
     document.querySelectorAll('.instruction-input').forEach(input => {
         if (input.value.trim()) {
-            ingredients.push(input.value.trim());
+            instructions.push(input.value.trim());
         }
     });
     document.getElementById('instructions-data').value = instructions.join('\n');
