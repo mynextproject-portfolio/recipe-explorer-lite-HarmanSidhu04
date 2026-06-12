@@ -77,6 +77,7 @@ def create_recipe_form(
             raise ValueError("Title too long")
         
         # Parse ingredients (one per line) and tags (comma-separated)
+        instruction_list=[ins.strip() for ins in instructions.split('\n') if ins.strip()]
         ingredient_list = [ing.strip() for ing in ingredients.split('\n') if ing.strip()]
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
         
@@ -92,7 +93,7 @@ def create_recipe_form(
             description=description,
             difficulty=difficulty,
             ingredients=ingredient_list,
-            instructions=instructions.strip(),
+            instructions=instruction_list,
             cuisine=cuisine,
             tags=tag_list
         )
@@ -128,6 +129,7 @@ def update_recipe_form(
             raise ValueError("Title is too long!")
         
         # Parse ingredients (one per line) and tags (comma-separated)
+        instruction_list=[ins.strip() for ins in instructions.split('\n') if ins.strip()]
         ingredient_list = [ing.strip() for ing in ingredients.split('\n') if ing.strip()]
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
         
@@ -142,7 +144,7 @@ def update_recipe_form(
             description=description,
             difficulty=difficulty,
             ingredients=ingredient_list,
-            instructions=instructions.strip(),
+            instructions=instruction_list,
             cuisine=cuisine,
             tags=tag_list
         )
